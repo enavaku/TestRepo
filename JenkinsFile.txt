@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { image 'default' }
+        docker { image 'provider=virtualbox' }
     }
     stages {
         stage('Test') {
