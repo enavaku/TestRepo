@@ -1,5 +1,5 @@
-node("docker") {
-    docker.withRegistry('dockerReg', '') {
+node("default") {
+    docker.withRegistry('', '') {
     
         git url: "https://github.com/enavaku/TestRepo.git", credentialsId: 'enavaku'
     
