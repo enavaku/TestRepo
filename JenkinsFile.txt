@@ -10,6 +10,7 @@ pipeline {
 					SET DOCKER_TLS_VERIFY=1
 					SET DOCKER_TOOLBOX_INSTALL_PATH=C:/PROGRA~1/DOCKER~1
 					docker.exe system info
+					docker.exe search sonarqube
 				'''
             }
         }
