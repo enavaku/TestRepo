@@ -1,17 +1,12 @@
-node("default") {
-    docker.withRegistry('', '') {
-    
-        git url: "https://github.com/enavaku/TestRepo.git", credentialsId: 'enavaku'
-    
-        sh "git rev-parse HEAD > .git/commit-id"
-        def commit_id = readFile('.git/commit-id').trim()
-        println commit_id
-    
-        stage "build"
-        def app = docker.build "RepoTrain"
-    
-        stage "publish"
-        app.push 'master'
-        app.push "${commit_id}"
+pipeline {
+    agent {
+        docker { image 'default' }
+    }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+            }
+        }
     }
 }
