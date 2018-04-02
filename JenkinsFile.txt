@@ -3,8 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat '''
-					cd C:\PROGRA~1\DOCKER~1
+                bat '''cd C:\PROGRA~1\DOCKER~1
 					SET DOCKER_CERT_PATH=C:\Users\enavaku\.docker\machine\machines\default
 					SET DOCKER_HOST=tcp://192.168.99.100:2376
 					SET DOCKER_MACHINE_NAME=default
