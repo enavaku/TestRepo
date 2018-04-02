@@ -1,7 +1,7 @@
 node("docker") {
     docker.withRegistry('dockerReg', '') {
     
-        git url: "https://github.com/enavaku/REPOTraining.git", credentialsId: 'enavaku'
+        git url: "https://github.com/enavaku/TestRepo.git", credentialsId: 'enavaku'
     
         sh "git rev-parse HEAD > .git/commit-id"
         def commit_id = readFile('.git/commit-id').trim()
