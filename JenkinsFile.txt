@@ -1,11 +1,8 @@
-pipeline {
-	environment {
-     scannerHome = tool 'SonarQube Scanner 3.1.0.1141'
-   }
-    agent any
-    stages {
+node {
+	
+    
         stage('Build') {
-            steps {
+            
                 bat '''cd C:/PROGRA~1/DOCKER~1
 					SET DOCKER_CERT_PATH=C:/Users/enavaku/.docker/machine/machines/default
 					SET DOCKER_HOST=tcp://192.168.99.100:2376
@@ -16,21 +13,21 @@ pipeline {
 					docker.exe pull docker.bintray.io/jfrog/artifactory-oss:latest
 					docker.exe build - < Dockerfile.txt
 				'''
-            }
+          
 		}
 		stage('SCM') {
-					steps {
+					
 						git 'https://github.com/enavaku/TestRepo.git'
 						}
-					}
+					
 		stage('SonarQube analysis') {
-				steps {
+				
 				// requires SonarQube Scanner 2.8+
+				def scannerHome = tool 'SonarQube Scanner 3.1.0.1411'
 					withSonarQubeEnv('My SonarQube Server') {
 					bat "${scannerHome}/bin/sonar-scanner"
-				}
+				
 				}
 			}
         
-	}
 }
