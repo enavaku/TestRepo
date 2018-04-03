@@ -18,7 +18,7 @@ node {
     
         stage('Build') {
             
-                bat '''cd C:/PROGRA~1/DOCKER~1
+				bat '''cd C:/PROGRA~1/DOCKER~1
 					SET DOCKER_CERT_PATH=C:/Users/enavaku/.docker/machine/machines/default
 					SET DOCKER_HOST=tcp://192.168.99.100:2376
 					SET DOCKER_MACHINE_NAME=default
@@ -29,6 +29,13 @@ node {
 					docker.exe build - < Dockerfile.txt
 				'''
           
+		}
+		stage ('Publish Artifactory') { 
+			def SERVER_ID = 'artifactory' 
+			def server = Artifactory.server SERVER_ID
+			def buildInfo = Artifactory.newBuildInfo() 
+			buildInfo.env.capture = true 
+			server.publishBuildInfo(buildInfo) 
 		}
 		
 		
