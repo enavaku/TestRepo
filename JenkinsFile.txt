@@ -9,8 +9,8 @@ node {
 				// requires SonarQube Scanner 2.8+
 				def scannerHome = tool 'sonar_runner'
 					withSonarQubeEnv('sonar') {
-					bat "C:/PROGRA~2/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar_runner/bin/sonar-scanner.bat" +
-						'-e' +
+					bat "C:/PROGRA~2/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar_runner/bin/sonar-scanner.bat " +
+						'-e ' +
 						'-Dsonar.projectKey=Test ' +
 						'-Dsonar.sources=. ' 
 					}
