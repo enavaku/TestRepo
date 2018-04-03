@@ -13,7 +13,7 @@ node {
 						'-e' +
 						'-Dsonar.projectKey=Test ' +
 						'-Dsonar.sources=. ' 
-          
+					}
 			}		
     
         stage('Build') {
