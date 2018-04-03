@@ -1,0 +1,8 @@
+FROM openjdk:8-jdk
+
+FROM jenkins
+
+FROM sonarqube
+
+FROM  docker.bintray.io/jfrog/artifactory-oss:latest
+
