@@ -1,34 +1,29 @@
 node {
 	stage('SCM') {
-					
-						git 'https://github.com/enavaku/TestRepo.git'
-						}
-		
+			git 'https://github.com/enavaku/TestRepo.git'
+		}
 	stage('SonarQube analysis') {
 				
-				// requires SonarQube Scanner 2.8+
-				def scannerHome = tool 'sonar_runner'
-					withSonarQubeEnv('sonar') {
-					bat "C:/PROGRA~2/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar_runner/bin/sonar-scanner.bat " +
-						'-e ' +
-						'-Dsonar.projectKey=Test ' +
-						'-Dsonar.sources=. ' 
-					}
-			}		
-    
-        stage('Build') {
-            
-				bat '''cd C:/PROGRA~1/DOCKER~1
-					SET DOCKER_CERT_PATH=C:/Users/enavaku/.docker/machine/machines/default
-					SET DOCKER_HOST=tcp://192.168.99.100:2376
-					SET DOCKER_MACHINE_NAME=default
-					SET DOCKER_TLS_VERIFY=1
-					SET DOCKER_TOOLBOX_INSTALL_PATH=C:/PROGRA~1/DOCKER~1
-					docker.exe pull sonarqube
-					docker.exe pull docker.bintray.io/jfrog/artifactory-oss:latest
-					docker.exe build - < Dockerfile.txt
-				'''
-          
+			// requires SonarQube Scanner 2.8+
+			def scannerHome = tool 'sonar_runner'
+			withSonarQubeEnv('sonar') {
+				bat "C:/PROGRA~2/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar_runner/bin/sonar-scanner.bat " +
+				'-e ' +
+				'-Dsonar.projectKey=Test ' +
+				'-Dsonar.sources=. ' 
+			}
+		}		
+	stage('Build') {
+			bat '''cd C:/PROGRA~1/DOCKER~1
+				SET DOCKER_CERT_PATH=C:/Users/enavaku/.docker/machine/machines/default
+				SET DOCKER_HOST=tcp://192.168.99.100:2376
+				SET DOCKER_MACHINE_NAME=default
+				SET DOCKER_TLS_VERIFY=1
+				SET DOCKER_TOOLBOX_INSTALL_PATH=C:/PROGRA~1/DOCKER~1
+				docker.exe pull sonarqube
+				docker.exe pull docker.bintray.io/jfrog/artifactory-oss:latest
+				docker.exe build - < Dockerfile.txt
+			'''
 		}
 		stage ('Publish Artifactory') { 
 			def SERVER_ID = 'artifactory' 
@@ -37,7 +32,4 @@ node {
 			buildInfo.env.capture = true 
 			server.publishBuildInfo(buildInfo) 
 		}
-		
-		
-        
 }
